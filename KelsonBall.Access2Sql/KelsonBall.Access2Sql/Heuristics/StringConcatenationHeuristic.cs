@@ -6,9 +6,10 @@ namespace KelsonBall.Access2Sql.Heuristics
 {
     public class StringConcatenationHeuristic : Heuristic
     {
-        public override void Mutate(LinkedToken tokens)
+        protected override void MutationLogic(LinkedToken tokens, bool verbose, Action<string> log)
         {
-            Console.WriteLine("Doing the string concatenation heuristic...");
+            if (verbose)
+                log("Starting STRING CONCATENATION Heuristic...");
         }
     }
 }

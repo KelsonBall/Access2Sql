@@ -1,4 +1,6 @@
-﻿namespace KelsonBall.Access2Sql
+﻿using System;
+
+namespace KelsonBall.Access2Sql
 {
     /// <summary>
     /// Encapsulates a modification of a sequence of tokens
@@ -6,6 +8,11 @@
     /// </summary>
     public abstract class Heuristic
     {
-        public abstract void Mutate(LinkedToken tokens);
+        protected abstract void MutationLogic(LinkedToken tokens, bool verbose, Action<string> log);
+
+        public void Mutate(LinkedToken tokens, bool verbose, Action<string> log = null)
+        {
+            MutationLogic(tokens, verbose, log ?? Console.WriteLine);
+        }
     }
 }

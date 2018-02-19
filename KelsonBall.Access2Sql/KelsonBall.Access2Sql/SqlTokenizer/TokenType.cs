@@ -17,6 +17,7 @@ namespace SqlTokenizer
     public enum TokenType
     {
         None = 0,
+        StartOfQuery,
         Whitespace,
         Seperator,
         Word,
@@ -24,6 +25,7 @@ namespace SqlTokenizer
         Number,
         String,
         Symbol,
-        Variable
+        Variable,
+        EndOfQuery,
     }
 }

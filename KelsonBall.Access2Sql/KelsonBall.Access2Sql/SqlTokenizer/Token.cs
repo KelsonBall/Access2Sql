@@ -14,7 +14,7 @@ namespace SqlTokenizer
     public class Token
     {
         public TokenType Type { get; set; }
-        public string Value { get; set; }
+        public string Source { get; set; }
 
         /// <summary>
         /// Compare two tokens.
@@ -24,8 +24,10 @@ namespace SqlTokenizer
         /// <returns></returns>
         public bool Equals(TokenType type, string value)
         {
-            return Type == type && Value == value;
+            return Type == type && Source.ToUpperInvariant() == value.ToUpperInvariant();
         }
+
+        public override string ToString() => Source;
     }
 
     /// <summary>
@@ -48,7 +50,7 @@ namespace SqlTokenizer
 
             for(int i = 0; i < tokensArray.Length; i++)
             {
-                if(tokensArray[i].Type == type && tokensArray[i].Value == value)
+                if(tokensArray[i].Type == type && tokensArray[i].Source == value)
                 {
                     result = true;
                     break;

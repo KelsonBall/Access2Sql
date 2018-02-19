@@ -22,7 +22,7 @@ namespace KelsonBall.Access2Sql.Console
                     WriteLine("input query: ");
                     WriteLine(sql);
                     WriteLine();
-                    string output = sql.ToTSql();
+                    string output = sql.ToTSql(verbose: true);
                     WriteLine();
                     WriteLine("output query: ");
                     WriteLine(output);

@@ -23,9 +23,9 @@ namespace SqlTokenizer
         private string[] keywords = {
             "SELECT", "FROM", "WHERE", "UNION", "ORDER", "BY", "AS", "ALL", "DISTINCT", "DISTINCTROW", "CAST", "YEAR",
             "MONTH", "DAY", "DATEPART", "AND", "OR", "NOLOCK", "INSERT", "VALUES", "INTO", "UPDATE", "SET", "DELETE", "VARCHAR",
-            "NUMERIC", "DATETIME", "CHAR","MAX", "MIN", "COUNT", "HAVING", "CASE", "WHEN", "THEN", "ELSE", "END", "IN", "EXISTS",
+            "NUMERIC", "DATETIME", "CHAR","MAX", "MIN", "COUNT", "COALESCE", "NZ", "HAVING", "CASE", "WHEN", "THEN", "ELSE", "END", "IN", "EXISTS",
             "ISNULL", "SUM", "AVG", "TOP", "SCOPE_IDENTITY", "INT", "CONVERT", "BETWEEN", "GETDATE", "INNER", "JOIN", "OUTER",
-            "LEFT", "RIGHT", "DATEADD", "LIKE", "ON", "IS", "NULL", "DESC", "ASC", "CROSS", "NOT", "EXISTS", "WITH", "GROUP", "ALL"
+            "LEFT", "RIGHT", "DATEADD", "LIKE", "ON", "IS", "NULL", "ISNULL", "DESC", "ASC", "CROSS", "NOT", "EXISTS", "WITH", "GROUP", "ALL"
         };
 
         private bool End
@@ -100,7 +100,7 @@ namespace SqlTokenizer
                 case '\t':
                 case '\r':
                 case '\n':
-                    var whitespacetoken = new Token { Value = currentChar.ToString(), Type = TokenType.Whitespace };
+                    var whitespacetoken = new Token { Source = currentChar.ToString(), Type = TokenType.Whitespace };
                     this.buffer.Clear();
                     this.ReadNextChar();
                     return whitespacetoken;
@@ -117,12 +117,12 @@ namespace SqlTokenizer
                 case ':':
                 case '=':
                 case '.':
-                    var token = new Token { Value = currentChar.ToString(), Type = TokenType.Symbol };
+                    var token = new Token { Source = currentChar.ToString(), Type = TokenType.Symbol };
                     this.buffer.Clear();
                     this.ReadNextChar();
                     return token;
                 case ',':
-                    var septoken = new Token { Value = currentChar.ToString(), Type = TokenType.Seperator };
+                    var septoken = new Token { Source = currentChar.ToString(), Type = TokenType.Seperator };
                     this.buffer.Clear();
                     this.ReadNextChar();
                     return septoken;
@@ -138,7 +138,7 @@ namespace SqlTokenizer
                         this.ReadNextChar();
                     }
 
-                    var nottoken = new Token { Value = this.buffer.ToString(), Type = TokenType.Symbol };
+                    var nottoken = new Token { Source = this.buffer.ToString(), Type = TokenType.Symbol };
                     this.buffer.Clear();
                     return nottoken;
                 default:
@@ -165,7 +165,7 @@ namespace SqlTokenizer
 
             var token = new Token
             {
-                Value = this.buffer.ToString(),
+                Source = this.buffer.ToString(),
                 Type = TokenType.String
             };
 
@@ -184,7 +184,7 @@ namespace SqlTokenizer
 
             var token = new Token
             {
-                Value = this.buffer.ToString(),
+                Source = this.buffer.ToString(),
                 Type = TokenType.Number
             };
 
@@ -203,7 +203,7 @@ namespace SqlTokenizer
 
             var token = new Token
             {
-                Value = this.buffer.ToString(),
+                Source = this.buffer.ToString(),
                 Type = TokenType.Word
             };
 
@@ -222,7 +222,7 @@ namespace SqlTokenizer
 
             var token = new Token
             {
-                Value = this.buffer.ToString(),
+                Source = this.buffer.ToString(),
                 Type = TokenType.Variable
             };
 

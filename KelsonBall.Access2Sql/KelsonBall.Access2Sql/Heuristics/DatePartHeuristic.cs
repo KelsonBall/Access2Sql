@@ -4,9 +4,10 @@ namespace KelsonBall.Access2Sql.Heuristics
 {
     public class DatePartHeuristic : Heuristic
     {
-        public override void Mutate(LinkedToken tokens)
+        protected override void MutationLogic(LinkedToken tokens, bool verbose, Action<string> log)
         {
-            Console.WriteLine("Doing the datepart heuristic...");
+            if (verbose)
+                log("Starting DATEPART Heuristic...");
         }
     }
 }
